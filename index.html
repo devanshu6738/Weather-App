@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="nav1">
+            <h1>Dev.Weather</h1>
+        </div>
+    </nav>
+    <div class="weather1">
+        <div class="weather2">
+            <input type="text" id="userinput" placeholder="Enter City Name">
+        </div>
+        <button id="btn">Search</button>
+    </div>
+    <div class="info1">
+        <div class="name1">
+            <h1>City Name</h1>
+            <p id="cityName1">Ambikapur</p>
+        </div>
+        <div class="time1">
+            <h1>Time</h1>
+            <p id="cityTime1">11:11</p>
+        </div>
+        <div class="temp1">
+            <h1>Temperature</h1>
+            <p id="temp2">23</p>
+        </div>
+    </div>
+    
+    
+    <script>
+        const button=document.getElementById("btn");
+const input=document.getElementById("userinput")
+const cityName=document.getElementById("cityName1");
+const cityTime=document.getElementById("cityTime1")
+const cityTemp=document.getElementById("temp2")
+async function getData(cityName){
+    const promise=await fetch(`http://api.weatherapi.com/v1/current.json?key=3dfd7833ade24e7180b63253241809&q=${cityName}&aqi=yes`)
+    return await promise.json()
+}
+button.addEventListener("click",async()=>{
+    const value=input.value;
+    const result=await getData(value);
+    cityName.innerHTML=`${result.location.name}`;
+    cityTime.innerHTML=result.location.localtime;
+    cityTemp.innerHTML=result.current.temp_c;
+})
+    </script>
+</body>
+</html>
